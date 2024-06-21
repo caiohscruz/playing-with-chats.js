@@ -1,0 +1,61 @@
+<!-- 
+    Gostaria que criasse para mim um gráfico utilizando a biblioteca chart.js. Esse gráfico deve
+    ser contruido a partir de uma lista de objetos, onde cada objeto possui as propriedades month,
+    categoryName, value e color. O gráfico deve ser do tipo barra, para cada mês
+    teremos uma barra representando o valor. O rótulo no eixo x deve representar o mês. 
+-->
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Bar Chart</title>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    </head>
+    <body>
+        <canvas id="barChart"></canvas>
+
+        <script>
+            // Sample data
+            var data = [
+                { month: "January", categoryName: "Category 1", value: 10, color: "red" },
+                { month: "February", categoryName: "Category 2", value: 20, color: "blue" },
+                { month: "March", categoryName: "Category 3", value: 15, color: "green" },
+                // Add more data objects here...
+            ];
+
+            var eixoXLabel = 'Período';
+            var eixoYLabel = 'Valor em R$';
+
+            // Get the canvas element
+            var canvas = document.getElementById("barChart");
+
+            // Create the chart
+            var chart = new Chart(canvas, {
+                type: 'bar',
+                data: {
+                    labels: data.map(obj => obj.month),
+                    datasets: [{
+                        label: 'Teste',
+                        data: data.map(obj => obj.value),
+                        backgroundColor: data.map(obj => obj.color),
+                    }]
+                },
+                options: {
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: eixoXLabel
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: eixoYLabel
+                            }
+                        }
+                    }
+                }
+            });
+        </script>
+    </body>
+    </html>
