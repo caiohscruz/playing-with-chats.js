@@ -1,0 +1,65 @@
+<!-- 
+    Gostaria que criasse para mim um gráfico utilizando a biblioteca chart.js. Esse gráfico deve
+    ser contruido a partir de uma lista de objetos, onde cada objeto possui as propriedades month,
+    incomes, expenses, debts e balance. O gráfico deve ser do tipo barra e linha, para cada mês
+    teremos duas barras, uma representando as receitas e outra representando as despesas. Já a linha
+    deve representar o saldo. A cor das barras de receita deve ser um tom de verde e a cor das barras
+    de despesa deve ser um tom de vermelho. A linha deve ser azul.
+ -->
+
+ <!DOCTYPE html>
+<html>
+<head>
+    <title>Gráfico de Barras e Linha</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <canvas id="myChart"></canvas>
+
+    <script>
+        // Dados de exemplo
+        var data = [
+            { month: "Janeiro", incomes: 1000, expenses: 800, debts: 200, balance: 200 },
+            { month: "Fevereiro", incomes: 1200, expenses: 900, debts: 300, balance: 300 },
+            { month: "Março", incomes: 1500, expenses: 1000, debts: 500, balance: 500 },
+            // Adicione mais objetos de exemplo conforme necessário
+        ];
+
+        // Configuração do gráfico
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: data.map(obj => obj.month),
+                datasets: [
+                    {
+                        label: 'Receitas',
+                        data: data.map(obj => obj.incomes),
+                        backgroundColor: 'rgba(0, 255, 0, 0.5)', // Tom de verde para as barras de receita
+                    },
+                    {
+                        label: 'Despesas',
+                        data: data.map(obj => obj.expenses),
+                        backgroundColor: 'rgba(255, 0, 0, 0.5)', // Tom de vermelho para as barras de despesa
+                    },
+                    {
+                        label: 'Saldo',
+                        data: data.map(obj => obj.balance),
+                        type: 'line',
+                        borderColor: 'blue', // Cor azul para a linha de saldo
+                        fill: false,
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
