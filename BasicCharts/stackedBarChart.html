@@ -1,0 +1,96 @@
+<!-- 
+    Gostaria que criasse para mim um gráfico utilizando a biblioteca chart.js. Esse gráfico deve
+    ser contruido a partir de uma lista de objetos, onde cada objeto possui as propriedades month,
+    categoryName, value e color. O gráfico deve ser do tipo barra, para cada mês
+    teremos uma barra composta por seções correspondentes ao valor de cada categoria para aquele mês
+    . O rótulo no eixo x deve representar o mês. 
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stacked Bar Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <canvas id="stackedBarChart"></canvas>
+
+    <script>
+        // Sample data
+        var data = [
+            { month: "January", categoryName: "Category 1", value: 10, color: "red" },
+            { month: "January", categoryName: "Category 2", value: 15, color: "blue" },
+            { month: "January", categoryName: "Category 3", value: 20, color: "green" },
+            { month: "February", categoryName: "Category 1", value: 12, color: "red" },
+            { month: "February", categoryName: "Category 2", value: 18, color: "blue" },
+            { month: "February", categoryName: "Category 3", value: 22, color: "green" },
+            // Add more data objects here...
+        ];
+
+        // Get the canvas element
+        var canvas = document.getElementById("stackedBarChart");
+
+        // Create the chart
+        var chart = new Chart(canvas, {
+            type: 'bar',
+            data: {
+                labels: getUniqueMonths(data),
+                datasets: getDatasets(data)
+            },
+            options: {
+                scales: {
+                    x: {
+                        stacked: true
+                    },
+                    y: {
+                        stacked: true
+                    }
+                }
+            }
+        });
+
+        // Function to get unique months from the data
+        function getUniqueMonths(data) {
+            var months = [];
+            data.forEach(function (item) {
+                if (!months.includes(item.month)) {
+                    months.push(item.month);
+                }
+            });
+            return months;
+        }
+
+        // Function to get datasets for each category
+        function getDatasets(data) {
+            var datasets = [];
+            var categories = getUniqueCategories(data);
+            categories.forEach(function (category) {
+                var dataset = {
+                    label: category,
+                    data: [],
+                    backgroundColor: []
+                };
+                data.forEach(function (item) {
+                    if (item.categoryName === category) {
+                        dataset.data.push(item.value);
+                        dataset.backgroundColor.push(item.color);
+                    }
+                });
+                datasets.push(dataset);
+            });
+            return datasets;
+        }
+
+        // Function to get unique categories from the data
+        function getUniqueCategories(data) {
+            var categories = [];
+            data.forEach(function (item) {
+                if (!categories.includes(item.categoryName)) {
+                    categories.push(item.categoryName);
+                }
+            });
+            return categories;
+        }
+    </script>
+</body>
+</html>
