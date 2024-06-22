@@ -2,8 +2,8 @@
 
 // Define um tipo para os registros de list
 class PieChartRecord {
-    constructor(categoryName, value, color) {
-        this.categoryName = categoryName;
+    constructor(label, value, color) {
+        this.label = label;
         this.value = value;
         this.color = color;
     }
@@ -27,12 +27,12 @@ var list = [
 // Restante do código...
 
 
-function createPieChart(list, canvasId) {
+function generatePieChart(list, canvasId) {
     var ctx = document.getElementById(canvasId).getContext('2d');
     var chart = new Chart(ctx, {
         type: 'pie',
         data: {
-            labels: list.map(item => item.categoryName),
+            labels: list.map(item => item.label),
             datasets: [{
                 data: list.map(item => item.value),
                 backgroundColor: list.map(item => item.color),

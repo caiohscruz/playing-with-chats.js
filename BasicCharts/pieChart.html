@@ -1,44 +1,51 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>Gráfico de Pizza</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
-<body>
+  </head>
+  <body>
     <canvas id="pieChart"></canvas>
 
     <script>
-        // Dados do gráfico
-        var list = [
-            { categoryName: "Despesas Fixas", value: 10, color: "#FF6384" },
-            { categoryName: "Despesas Variáveis", value: 20, color: "#36A2EB" },
-            { categoryName: "Alimentação", value: 30, color: "#FFCE56" },
-            { categoryName: "Transporte", value: 40, color: "#4BC0C0" },
-            { categoryName: "Lazer", value: 50, color: "#9966FF" },
-            { categoryName: "Educação", value: 60, color: "#FF9F40" },
-            { categoryName: "Saúde", value: 70, color: "#FF6384" },
-            { categoryName: "Moradia", value: 80, color: "#36A2EB" },
-            { categoryName: "Investimentos", value: 90, color: "#FFCE56" },
-            { categoryName: "Dívidas", value: 100, color: "#4BC0C0" },
-            { categoryName: "Renda", value: 110, color: "#9966FF" },            
-        ];
+      // Dados do gráfico
+      var list = [
+        { label: "Despesas Fixas", value: 10, color: "#FF6384" },
+        { label: "Despesas Variáveis", value: 20, color: "#36A2EB" },
+        { label: "Alimentação", value: 30, color: "#FFCE56" },
+        { label: "Transporte", value: 40, color: "#4BC0C0" },
+        { label: "Lazer", value: 50, color: "#9966FF" },
+        { label: "Educação", value: 60, color: "#FF9F40" },
+        { label: "Saúde", value: 70, color: "#FF6384" },
+        { label: "Moradia", value: 80, color: "#36A2EB" },
+        { label: "Investimentos", value: 90, color: "#FFCE56" },
+        { label: "Dívidas", value: 100, color: "#4BC0C0" },
+        { label: "Renda", value: 110, color: "#9966FF" },
+      ];
 
-        // Configuração do gráfico
-        var ctx = document.getElementById('pieChart').getContext('2d');
+      var canvasId = "pieChart";
+
+      function generatePieChart(list, canvasId) {
+        var ctx = document.getElementById(canvasId).getContext("2d");
         var chart = new Chart(ctx, {
-            type: 'pie',
-            data: {
-                labels: list.map(item => item.categoryName),
-                datasets: [{
-                    data: list.map(item => item.value),
-                    backgroundColor: list.map(item => item.color),
-                }],
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-            },
+          type: "pie",
+          data: {
+            labels: list.map((item) => item.label),
+            datasets: [
+              {
+                data: list.map((item) => item.value),
+                backgroundColor: list.map((item) => item.color),
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+          },
         });
+      }
+
+      generatePieChart(list, canvasId);
     </script>
-</body>
+  </body>
 </html>
